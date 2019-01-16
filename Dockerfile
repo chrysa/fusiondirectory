@@ -16,7 +16,7 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
     gpg --keyserver keys.gnupg.net --recv-keys E184859262B4981F && \
     gpg -a --export E184859262B4981F | apt-key add - && \
     add-apt-repository 'deb http://repos.fusiondirectory.org/fusiondirectory-releases/fusiondirectory-1.0.9/debian-jessie/ jessie main' && \
-    add-apt-repository 'deb http://repos.fusiondirectory.org/fusiondirectory-extra/debian-jessie jessie main' && \
+    # add-apt-repository 'deb http://repos.fusiondirectory.org/fusiondirectory-extra/debian-jessie jessie main' && \
     apt-get update -q && \
     apt-get install -qy \
         fusiondirectory \
@@ -40,7 +40,7 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
         php-mdb2 \
         php-mbstring \
         php-fpm && \
-    apt-get autoremove -qy software-properties-common gnupg apt-transport-https && \
+    # apt-get autoremove -qy software-properties-common gnupg apt-transport-https && \
     rm -rf /var/lib/apt/lists/*
 
 RUN export TARGET=/etc/php/7.0/fpm/php.ini \
