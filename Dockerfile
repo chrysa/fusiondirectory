@@ -5,17 +5,18 @@ ENV LDAP_DOMAIN=ducal.me \
     FUSIONDIRECTORY_PASSWORD=changeme2 \
     SMTP_HOST=smtp \
     SMTP_PORT=25 \
-    SMTP_TLSCERTCHECK=off \
-    DEBIAN_FRONTEND=noninteractive
+    SMTP_TLSCERTCHECK=off
 
 EXPOSE 80
 
-RUN apt-get update -q && \
-    apt-get install -qy software-properties-common gnupg  apt-transport-https && \
+RUN export DEBIAN_FRONTEND=noninteractive && \
+    export LC_ALL=en_US.UTF-8 && \
+    apt-get update && \
+    apt-get install -y software-properties-common gnupg  apt-transport-https && \
     gpg --keyserver keys.gnupg.net --recv-keys E184859262B4981F && \
     gpg -a --export E184859262B4981F | apt-key add - && \
-    add-apt-repository 'deb http://repos.fusiondirectory.org/fusiondirectory-current/debian-stretch stretch main' && \
-    # add-apt-repository 'deb http://repos.fusiondirectory.org/fusiondirectory-extra/debian-jessie jessie main' && \
+    add-apt-repository 'deb http://repos.fusiondirectory.org/fusiondirectory-releases/fusiondirectory-1.0.9/debian-jessie/ jessie main' && \
+    add-apt-repository 'deb http://repos.fusiondirectory.org/fusiondirectory-extra/debian-jessie jessie main' && \
     apt-get update -q && \
     apt-get install -qy \
         fusiondirectory \
@@ -39,7 +40,7 @@ RUN apt-get update -q && \
         php-mdb2 \
         php-mbstring \
         php-fpm && \
-    apt-get autoremove -qy software-properties-common gnupg && \
+    apt-get autoremove -qy software-properties-common gnupg apt-transport-https && \
     rm -rf /var/lib/apt/lists/*
 
 RUN export TARGET=/etc/php/7.0/fpm/php.ini \
