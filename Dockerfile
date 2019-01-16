@@ -15,9 +15,8 @@ RUN apt-get update -q && \
     gpg --keyserver keys.gnupg.net --recv-keys E184859262B4981F && \
     gpg -a --export E184859262B4981F | apt-key add - && \
     add-apt-repository 'deb http://repos.fusiondirectory.org/fusiondirectory-current/debian-stretch stretch main' && \
-    add-apt-repository 'deb http://repos.fusiondirectory.org/fusiondirectory-extra/debian-jessie jessie main'
-
-RUN apt-get update -q && \
+    # add-apt-repository 'deb http://repos.fusiondirectory.org/fusiondirectory-extra/debian-jessie jessie main' && \
+    apt-get update -q && \
     apt-get install -qy \
         fusiondirectory \
         argonaut-server \
